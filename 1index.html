@@ -1,0 +1,86 @@
+DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UPS meu AMOR</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; color: #333; background: #fefefe; text-align: center; }
+    h1 { margin: 20px 0; font-size: 2em; color: #d14; }
+    .slider { position: relative; max-width: 100%; overflow: hidden; }
+    .slides { display: flex; transition: transform 0.5s ease; }
+    .slide { min-width: 100%; }
+    .slide img { width: 100%; height: auto; display: block; }
+    #counter { font-size: 1.2em; margin: 20px 0; color: #555; }
+    .text-content { padding: 0 20px 40px; font-size: 1em; }
+    .btn { display: inline-block; margin: 10px auto 30px; padding: 12px 20px; background: #d14; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+    footer { font-size: 0.9em; color: #888; margin: 40px 0; }
+  </style>
+</head>
+<body>
+
+  <h1>UPS – Unidos Pelo Sentimento</h1>
+
+  <div class="slider" id="slider">
+    <div class="slides" id="slides">
+      <div class="slide">
+        <img src="https://lh3.googleusercontent.com/d/1l0omZPIFtWVPPERp2f752h8w6do3lRJy=s800" alt="Foto 1">
+      </div>
+      <div class="slide">
+        <img src="https://lh3.googleusercontent.com/d/1l-r9YtAFV3qXQ-Qa_-4Fgu1RZ8piVBdL=s800" alt="Foto 2">
+      </div>
+    </div>
+  </div>
+
+  <div id="counter"></div>
+
+  <div class="text-content">
+    <h2>Nossa história</h2>
+    <p>
+      Desde o dia em que nos conhecemos, algo mágico começou. Cada sorriso seu, cada momento nosso, é um presente de Deus. <br>
+      O tempo tem passado, mas meu amor só cresce. Obrigado por estar ao meu lado. ❤️
+    </p>
+  </div>
+
+  <a href="https://drive.google.com/drive/folders/1kpc1ilpeca8PxvRy-dqt6j-MeHASgFx8" target="_blank" class="btn">📷 Ver ou adicionar nossas fotos</a>
+
+  <footer>Feito com 💖 por Ezequiel para o amor da sua vida</footer>
+
+  <script>
+    // Contador de tempo
+    const start = new Date('2024-06-22T21:00:00');
+    const counter = document.getElementById('counter');
+    function updateCounter() {
+      const diff = Date.now() - start;
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const secs = Math.floor((diff % (1000*60)) / 1000);
+      counter.textContent = `Estamos juntos há ${days} dias, ${hours}h ${mins}min ${secs}s`;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // Slideshow automático
+    const slides = document.getElementById('slides');
+    let index = 0;
+    function nextSlide() {
+      index = (index + 1) % slides.children.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+    setInterval(nextSlide, 4000);
+
+    // Toque no celular (passar foto com o dedo)
+    let startX = 0;
+    const slider = document.getElementById('slider');
+    slider.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    slider.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (endX - startX > 50) index = (index - 1 + slides.children.length) % slides.children.length;
+      else if (startX - endX > 50) index = (index + 1) % slides.children.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    });
+  </script>
+
+</body>
+</html>
